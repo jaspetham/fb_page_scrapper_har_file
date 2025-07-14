@@ -96,22 +96,3 @@ def clean_unicode_from_file(file_path):
         print(f"Error: File not found at {file_path} for unicode cleaning.", file=sys.stderr)
     except Exception as e:
         print(f"An error occurred during unicode cleaning of {file_path}: {e}", file=sys.stderr)
-
-if __name__ == "__main__":
-    input_file_path = "sources/www.facebook.com.har"
-    output_file_path = "delivery.log"
-
-    extracted_texts = extract_message_text_from_har(input_file_path)
-
-    if extracted_texts:
-        try:
-            with open(output_file_path, 'w', encoding='utf-8') as outfile:
-                for text in extracted_texts:
-                    outfile.write(text + '\n')
-            print(f"Extracted message texts saved to {output_file_path}")
-            clean_unicode_from_file(output_file_path)
-            print(f"Cleaned unicode characters in {output_file_path}")
-        except IOError as e:
-            print(f"Error writing to output file {output_file_path}: {e}", file=sys.stderr)
-    else:
-        print(f"No 'message.text' found using regex in {input_file_path}", file=sys.stderr)
